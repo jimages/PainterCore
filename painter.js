@@ -1,4 +1,4 @@
-import Pen, { penCache, clearPenCache } from './lib/pen';
+import Pen, {clearPenCache, penCache} from './lib/pen';
 import Downloader from './lib/downloader';
 import WxCanvas from './lib/wx-canvas';
 
@@ -158,7 +158,7 @@ Component({
 
     getScaleIcon(rect, type) {
       let scaleArea = {};
-      const { customActionStyle } = this.properties;
+      const {customActionStyle} = this.properties;
       if (customActionStyle && customActionStyle.scale) {
         scaleArea = {
           type: 'image',
@@ -196,7 +196,7 @@ Component({
 
     getDeleteIcon(rect) {
       let deleteArea = {};
-      const { customActionStyle } = this.properties;
+      const {customActionStyle} = this.properties;
       if (customActionStyle && customActionStyle.scale) {
         deleteArea = {
           type: 'image',
@@ -239,7 +239,7 @@ Component({
       }
       if (newVal && newVal.id && this.touchedView.id !== newVal.id) {
         // 带 id 的动作给撤回时使用，不带 id，表示对当前选中对象进行操作
-        const { views } = this.currentPalette;
+        const {views} = this.currentPalette;
         for (let i = 0; i < views.length; i++) {
           if (views[i].id === newVal.id) {
             // 跨层回撤，需要重新构建三层关系
@@ -300,10 +300,10 @@ Component({
       } else {
         newVal && newVal.text && doView.text && newVal.text !== doView.text && (doView.text = newVal.text);
         newVal &&
-          newVal.content &&
-          doView.content &&
-          newVal.content !== doView.content &&
-          (doView.content = newVal.content);
+        newVal.content &&
+        doView.content &&
+        newVal.content !== doView.content &&
+        (doView.content = newVal.content);
         this.reDraw(doView, callback, isMoving);
       }
     },
@@ -323,7 +323,7 @@ Component({
         });
       });
 
-      const { rect, css, type } = doView;
+      const {rect, css, type} = doView;
 
       this.block = {
         width: this.currentPalette.width,
@@ -373,7 +373,7 @@ Component({
       let deleteIndex = -1;
       for (let i = totalLayerCount - 1; i >= 0; i--) {
         const view = this.currentPalette.views[i];
-        const { rect } = view;
+        const {rect} = view;
         if (this.touchedView && this.touchedView.id && this.touchedView.id === view.id && this.isInDelete(x, y, rect)) {
           canBeTouched.length = 0;
           deleteIndex = i;
@@ -468,12 +468,12 @@ Component({
       if (this.isDisabled) {
         return;
       }
-      const { x, y } = event.touches[0];
+      const {x, y} = event.touches[0];
       this.startX = x;
       this.startY = y;
       this.startTimeStamp = new Date().getTime();
       if (this.touchedView && !this.isEmpty(this.touchedView)) {
-        const { rect } = this.touchedView;
+        const {rect} = this.touchedView;
         if (this.isInScale(x, y, rect)) {
           this.isScale = true;
           this.startH = rect.bottom - rect.top;
@@ -517,10 +517,10 @@ Component({
       if (!this.touchedView || (this.touchedView && !this.touchedView.id)) {
         return;
       }
-      const { x, y } = event.touches[0];
+      const {x, y} = event.touches[0];
       const offsetX = x - this.startX;
       const offsetY = y - this.startY;
-      const { rect, type } = this.touchedView;
+      const {rect, type} = this.touchedView;
       let css = {};
       if (this.isScale) {
         clearPenCache(this.touchedView.id);
@@ -591,7 +591,7 @@ Component({
       this.initScreenK();
       this.downloadImages(this.properties.dancePalette).then(async palette => {
         this.currentPalette = palette;
-        const { width, height } = palette;
+        const {width, height} = palette;
 
         if (!width || !height) {
           console.error(`You should set width and height correctly for painter, width: ${width}, height: ${height}`);
@@ -618,7 +618,7 @@ Component({
 
     startPaint() {
       this.initScreenK();
-      const { width, height } = this.properties.palette;
+      const {width, height} = this.properties.palette;
 
       if (!width || !height) {
         console.error(`You should set width and height correctly for painter, width: ${width}, height: ${height}`);
@@ -764,7 +764,7 @@ Component({
           const selectId = `#${id}`;
           query
             .select(selectId)
-            .fields({ node: true, size: true })
+            .fields({node: true, size: true})
             .exec(res => {
               that.canvasNode = res[0].node;
               const ctx = that.canvasNode.getContext('2d');
@@ -795,10 +795,10 @@ Component({
           if (
             Math.abs(
               (infoRes.width * that.canvasHeightInPx - that.canvasWidthInPx * infoRes.height) /
-                (infoRes.height * that.canvasHeightInPx),
+              (infoRes.height * that.canvasHeightInPx),
             ) < 0.01
           ) {
-            that.triggerEvent('imgOK', {
+            that.triggerEvent('imgOk', {
               path: filePath,
             });
           } else {
